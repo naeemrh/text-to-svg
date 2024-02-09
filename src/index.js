@@ -3,8 +3,8 @@
  */
 
 import * as opentype from 'opentype.js';
-
-const DEFAULT_FONT = require('path').join(__dirname, '../fonts/ipag.ttf');
+const path = require('path')
+const DEFAULT_FONT = path.join(__dirname, '../fonts/ipag.ttf');
 
 // Private method
 
@@ -21,6 +21,17 @@ function parseAnchorOption(anchor) {
 export default class TextToSVG {
   constructor(font) {
     this.font = font;
+  }
+
+  static wishgramLoad(type) {
+    let fontName = 'bungee-shade-latin-400-normal.woff'
+    if (type === 'normal') {
+      fontName = "ChakraPetch-SemiBold.ttf"
+    } else if (type === 'additional') {
+      fontName = "BungeeHairline-Regular.ttf"
+    }
+    const file = path.join(__dirname, `../fonts/${fontName}`)
+    return new TextToSVG(opentype.loadSync(file))
   }
 
   static loadSync(file = DEFAULT_FONT) {
